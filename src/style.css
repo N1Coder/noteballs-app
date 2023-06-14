@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply bg-white dark:bg-slate-800;
+}
+
+.nav__link {
+  @apply font-medium text-base text-gray-600 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500;
+}
+
+.nav__link-active {
+  @apply font-semibold text-blue-600 dark:text-blue-600;
+}
