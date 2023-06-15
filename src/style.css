@@ -13,3 +13,19 @@ body {
 .nav__link-active {
   @apply font-semibold text-blue-600 dark:text-blue-600;
 }
+
+.btn__primary {
+  @apply py-3 px-4 w-fit justify-center items-center self-end gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800;
+}
+
+.btn__warning {
+  @apply py-3 px-4 w-full justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-amber-500 text-white hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800;
+}
+
+.btn__danger {
+  @apply py-3 px-4 w-full justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-rose-500 text-white hover:bg-rose-600 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800;
+}
+
+.textarea {
+  @apply py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400;
+}
