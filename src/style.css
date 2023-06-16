@@ -18,8 +18,12 @@ body {
   @apply py-3 px-4 w-fit justify-center items-center self-end gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800;
 }
 
+.btn__secondary {
+  @apply py-3 px-4 w-fit justify-center items-center self-end gap-2 rounded-md border border-transparent font-semibold bg-violet-500 text-white hover:bg-violet-600 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800;
+}
+
 .btn__warning {
-  @apply py-3 px-4 w-full justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-amber-500 text-white hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800;
+  @apply py-3 px-4 w-full justify-center items-center gap-2 rounded-md border border-transparent text-center font-semibold bg-amber-500 text-white hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800;
 }
 
 .btn__danger {

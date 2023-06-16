@@ -1,6 +1,8 @@
 <script setup>
 import { computed } from "@vue/reactivity"
+import { useStoreNotes } from "@stores/storeNotes"
 
+// Props
 const props = defineProps({
   note: {
     required: true,
@@ -8,12 +10,13 @@ const props = defineProps({
   },
 })
 
+// Emit
 const emit = defineEmits(["deleteNote"])
 
-const handleDeleteNote = () => {
-  emit("deleteNote", props.note.id)
-}
+// Store
+const storeNotes = useStoreNotes()
 
+// Computed
 const charactersLength = computed(() => {
   const charLength = props.note.content.length
 
@@ -39,9 +42,18 @@ const charactersLength = computed(() => {
       class="bg-gray-100 border-t rounded-b-xl py-3 px-4 md:px-5 dark:bg-gray-800 dark:border-gray-700"
     >
       <div class="flex gap-2 w-full rounded-md shadow-sm">
-        <button type="button" class="btn__warning">Edit</button>
+        <RouterLink
+          :to="`/editNote/${note.id}`"
+          type="button"
+          class="btn__warning"
+          >Edit</RouterLink
+        >
 
-        <button @click="handleDeleteNote" type="button" class="btn__danger">
+        <button
+          @click="storeNotes.deleteNote(note.id)"
+          type="button"
+          class="btn__danger"
+        >
           Delete
         </button>
       </div>

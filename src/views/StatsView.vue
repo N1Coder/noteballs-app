@@ -1,3 +1,64 @@
+<script setup>
+import { useStoreNotes } from "@stores/storeNotes"
+
+// Store
+const storeNotes = useStoreNotes()
+</script>
+
 <template>
-  <h1>From stats view</h1>
+  <div class="flex flex-col">
+    <div class="-m-1.5 overflow-x-auto">
+      <div class="p-1.5 min-w-full inline-block align-middle">
+        <div class="border rounded-lg overflow-hidden dark:border-gray-700">
+          <table
+            class="min-w-full divide-y divide-gray-200 dark:divide-gray-700"
+          >
+            <thead class="bg-gray-50 dark:bg-gray-700">
+              <tr>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase dark:text-gray-400"
+                >
+                  Stat
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase dark:text-gray-400"
+                >
+                  Value
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y">
+              <tr>
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-800 dark:text-gray-200"
+                >
+                  Number of Notes
+                </td>
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200"
+                >
+                  {{ storeNotes.getTotalNotes }}
+                </td>
+              </tr>
+
+              <tr>
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-800 dark:text-gray-200"
+                >
+                  Total Characters Combined
+                </td>
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200"
+                >
+                  {{ storeNotes.getTotalCharacters }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
