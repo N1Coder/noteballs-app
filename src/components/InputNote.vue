@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue"
+import { vAutofocus } from "@directives/vAutofocus.js"
 
 const textareaRef = ref(null)
 
@@ -48,6 +49,8 @@ defineExpose({ focusInput })
       class="textarea"
       rows="3"
       :placeholder="placeholder"
+      maxlength="100"
+      v-autofocus
     ></textarea>
 
     <div class="flex gap-2 w-fit ml-auto">

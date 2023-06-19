@@ -3,6 +3,7 @@ import Note from "@components/Note.vue"
 import InputNote from "@components/InputNote.vue"
 import { ref } from "vue"
 import { useStoreNotes } from "@stores/storeNotes.js"
+import { useWatchCharacters } from "@use/useWatchCharacters.js"
 
 const newNoteInput = ref(""),
   inputNoteRef = ref(null)
@@ -17,6 +18,9 @@ const addNewNote = () => {
   newNoteInput.value = ""
   inputNoteRef.value.focusInput()
 }
+
+// Watch
+useWatchCharacters(newNoteInput)
 </script>
 
 <template>

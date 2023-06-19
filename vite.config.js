@@ -13,6 +13,10 @@ export default defineConfig({
         new URL("./src/components", import.meta.url)
       ),
       "@stores": fileURLToPath(new URL("./src/stores", import.meta.url)),
+      "@directives": fileURLToPath(
+        new URL("./src/directives", import.meta.url)
+      ),
+      "@use": fileURLToPath(new URL("./src/use", import.meta.url)),
     },
   },
   server: {
