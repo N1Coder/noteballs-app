@@ -21,6 +21,10 @@ const props = defineProps({
     type: String,
     default: "Note content",
   },
+  maxChars: {
+    type: Number,
+    default: 1000,
+  },
 })
 
 // Emit
@@ -49,7 +53,7 @@ defineExpose({ focusInput })
       class="textarea"
       rows="3"
       :placeholder="placeholder"
-      maxlength="100"
+      :maxlength="maxChars"
       v-autofocus
     ></textarea>
 

@@ -3,6 +3,7 @@ import { useStoreNotes } from "@stores/storeNotes"
 import { vAutofocus } from "@directives/vAutofocus"
 import { ref } from "vue"
 import { useWatchCharacters } from "@use/useWatchCharacters"
+import { MAX_CHARS_COMMENT } from "@config/config.js"
 
 const commentInput = ref("")
 
@@ -10,7 +11,7 @@ const commentInput = ref("")
 const storeNotes = useStoreNotes()
 
 // Watch
-useWatchCharacters(commentInput, 50)
+useWatchCharacters(commentInput, MAX_CHARS_COMMENT)
 </script>
 
 <template>
@@ -75,7 +76,7 @@ useWatchCharacters(commentInput, 50)
       placeholder="Do you like Noteballs App?"
       v-model="commentInput"
       v-autofocus
-      maxlength="50"
+      :maxlength="MAX_CHARS_COMMENT"
     />
   </div>
 </template>

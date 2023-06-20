@@ -17,6 +17,7 @@ export default defineConfig({
         new URL("./src/directives", import.meta.url)
       ),
       "@use": fileURLToPath(new URL("./src/use", import.meta.url)),
+      "@config": fileURLToPath(new URL("./src/config", import.meta.url)),
     },
   },
   server: {

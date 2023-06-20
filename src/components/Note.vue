@@ -1,6 +1,11 @@
 <script setup>
-import { computed } from "@vue/reactivity"
+import Modal from "@components/Modal.vue"
+import { computed, reactive } from "@vue/reactivity"
 import { useStoreNotes } from "@stores/storeNotes"
+
+const modalData = reactive({
+  deleteModalStatus: false,
+})
 
 // Props
 const props = defineProps({
@@ -33,7 +38,7 @@ const charactersLength = computed(() => {
         {{ note.content }}
       </p>
 
-      <small class="block text-right mt-2 text-gray-300">
+      <small class="block text-right mt-2 text-gray-500 dark:text-gray-300">
         {{ charactersLength }}
       </small>
     </div>
@@ -50,12 +55,36 @@ const charactersLength = computed(() => {
         >
 
         <button
-          @click="storeNotes.deleteNote(note.id)"
+          @click="modalData.deleteModalStatus = true"
           type="button"
           class="btn__danger"
         >
           Delete
         </button>
+
+        <Modal
+          v-if="modalData.deleteModalStatus"
+          v-model="modalData.deleteModalStatus"
+        >
+          <template #title>
+            <h3 class="font-bold text-gray-800 dark:text-white">Delete Note</h3>
+          </template>
+
+          <template #content>
+            <p class="mt-1 text-gray-800 dark:text-gray-400">
+              Are you sure to delete this note?
+            </p>
+          </template>
+
+          <template #actionBtn>
+            <button
+              @click="storeNotes.deleteNote(note.id)"
+              class="hs-dropup-toggle btn__danger w-fit"
+            >
+              Delete
+            </button>
+          </template>
+        </Modal>
       </div>
     </div>
   </div>

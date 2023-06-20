@@ -4,6 +4,7 @@ import InputNote from "@components/InputNote.vue"
 import { ref } from "vue"
 import { useStoreNotes } from "@stores/storeNotes.js"
 import { useWatchCharacters } from "@use/useWatchCharacters.js"
+import { MAX_CHARS_NOTE } from "@config/config.js"
 
 const newNoteInput = ref(""),
   inputNoteRef = ref(null)
@@ -20,7 +21,7 @@ const addNewNote = () => {
 }
 
 // Watch
-useWatchCharacters(newNoteInput)
+useWatchCharacters(newNoteInput, MAX_CHARS_NOTE)
 </script>
 
 <template>
@@ -29,6 +30,7 @@ useWatchCharacters(newNoteInput)
     ref="inputNoteRef"
     label="Add a new note!"
     v-model="newNoteInput"
+    :max-chars="MAX_CHARS_NOTE"
   >
     <template #buttons>
       <button
