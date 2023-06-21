@@ -1,4 +1,5 @@
 import { defineStore, acceptHMRUpdate } from "pinia"
+import { db } from "@config/firebase.js"
 
 export const useStoreNotes = defineStore("storeNotes", {
   state: () => {

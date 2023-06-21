@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@vueuse/core": "^10.2.0",
+    "firebase": "^9.22.2",
     "pinia": "^2.1.4",
     "preline": "^1.9.0",
     "vue": "^3.2.47",
