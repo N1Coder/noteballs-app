@@ -1,5 +1,13 @@
 <script setup>
 import Header from "@components/Header.vue"
+import { useStoreNotes } from "@stores/storeNotes.js"
+import { onMounted } from "vue"
+
+const storeNotes = useStoreNotes()
+
+onMounted(() => {
+  storeNotes.getNotes()
+})
 </script>
 
 <template>

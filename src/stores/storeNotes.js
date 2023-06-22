@@ -1,23 +1,23 @@
 import { defineStore, acceptHMRUpdate } from "pinia"
 import { db } from "@config/firebase.js"
+import {
+  collection,
+  onSnapshot,
+  setDoc,
+  deleteDoc,
+  doc,
+  updateDoc,
+  query,
+  orderBy,
+} from "firebase/firestore"
+
+const notesRef = (id) => doc(db, "notes", id)
+const notesQuery = query(collection(db, "notes"), orderBy("createdAt", "desc"))
 
 export const useStoreNotes = defineStore("storeNotes", {
   state: () => {
     return {
-      notes: [
-        {
-          id: "id1",
-          content: `The death of something can become your greatest strength.`,
-        },
-        {
-          id: "id2",
-          content: `To be a leader, bring certainty, to an environment where there isn’t any.`,
-        },
-        {
-          id: "id3",
-          content: `Peace is the only battle worth waging`,
-        },
-      ],
+      notes: [],
     }
   },
   getters: {
@@ -40,21 +40,46 @@ export const useStoreNotes = defineStore("storeNotes", {
     },
   },
   actions: {
-    addNewNote(inputVal) {
-      if (!inputVal) return
+    async getNotes() {
+      // Note: For reference later
+      // const querySnapshot = await getDocs(collection(db, "notes"))
+      // querySnapshot.forEach((doc) => {
+      //   this.notes.push({
+      //     id: doc.id,
+      //     content: doc.data().content,
+      //   })
+      // })
 
-      this.notes.unshift({
-        id: crypto.randomUUID(),
-        content: inputVal,
+      onSnapshot(notesQuery, (querySnapshot) => {
+        this.notes = []
+
+        querySnapshot.forEach((doc) => {
+          this.notes.push({
+            id: doc.id,
+            content: doc.data().content,
+          })
+        })
       })
     },
-    deleteNote(id) {
-      this.notes = this.notes.filter((note) => note.id !== id)
-    },
-    editNote(id, content) {
-      const getId = this.notes.findIndex((note) => note.id === id)
+    async addNewNote(inputVal) {
+      if (!inputVal) return
 
-      this.notes[getId].content = content
+      const id = crypto.randomUUID()
+      const content = inputVal
+
+      await setDoc(notesRef(id), {
+        content,
+        createdAt: new Date().getTime().toString(),
+      })
+    },
+    async deleteNote(id) {
+      await deleteDoc(notesRef(id))
+    },
+    async editNote(id, content) {
+      await updateDoc(notesRef(id), {
+        content,
+        createdAt: new Date().getTime().toString(),
+      })
     },
   },
 })
