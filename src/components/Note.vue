@@ -27,6 +27,21 @@ const charactersLength = computed(() => {
 
   return charLength > 1 ? `${charLength} characters` : `${charLength} character`
 })
+
+const createdAt = computed(() => {
+  const timestamp = props.note.createdAt
+  const locale = navigator.language
+  const options = {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    day: "2-digit",
+    month: "numeric",
+    year: "numeric",
+  }
+
+  return new Intl.DateTimeFormat(locale, options).format(timestamp)
+})
 </script>
 
 <template>
@@ -38,9 +53,15 @@ const charactersLength = computed(() => {
         {{ note.content }}
       </p>
 
-      <small class="block text-right mt-2 text-gray-500 dark:text-gray-300">
-        {{ charactersLength }}
-      </small>
+      <span
+        class="block text-right mt-2 text-gray-500 dark:text-gray-300 space-x-1"
+      >
+        <small> {{ createdAt }}, </small>
+
+        <small>
+          {{ charactersLength }}
+        </small>
+      </span>
     </div>
 
     <div

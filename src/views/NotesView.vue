@@ -5,6 +5,7 @@ import { ref } from "vue"
 import { useStoreNotes } from "@stores/storeNotes.js"
 import { useWatchCharacters } from "@use/useWatchCharacters.js"
 import { MAX_CHARS_NOTE } from "@config/config.js"
+import NoteLoading from "@components/NoteLoading.vue"
 
 const newNoteInput = ref(""),
   inputNoteRef = ref(null)
@@ -45,5 +46,19 @@ useWatchCharacters(newNoteInput, MAX_CHARS_NOTE)
     </template>
   </InputNote>
 
-  <Note v-for="note in storeNotes.notes" :key="note.id" :note="note" />
+  <template v-if="storeNotes.isLoading">
+    <NoteLoading v-for="i in 4" />
+  </template>
+
+  <template v-else>
+    <Note v-for="note in storeNotes.notes" :key="note.id" :note="note" />
+
+    <div
+      v-if="!storeNotes.notes.length"
+      class="bg-blue-500 text-sm text-white rounded-md p-4 col-span-2"
+      role="alert"
+    >
+      <span class="font-bold block">No notes available...</span>
+    </div>
+  </template>
 </template>

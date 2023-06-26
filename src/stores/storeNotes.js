@@ -18,6 +18,7 @@ export const useStoreNotes = defineStore("storeNotes", {
   state: () => {
     return {
       notes: [],
+      isLoading: true,
     }
   },
   getters: {
@@ -57,8 +58,11 @@ export const useStoreNotes = defineStore("storeNotes", {
           this.notes.push({
             id: doc.id,
             content: doc.data().content,
+            createdAt: doc.data().createdAt,
           })
         })
+
+        this.isLoading = false
       })
     },
     async addNewNote(inputVal) {
