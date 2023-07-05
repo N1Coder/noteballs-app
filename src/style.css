@@ -33,3 +33,7 @@ body {
 .textarea {
   @apply py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400;
 }
+
+.form__card {
+  @apply flex flex-col gap-4 bg-white border shadow-md rounded-xl p-4 md:p-5 dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7] dark:text-gray-400 max-w-md mx-auto mt-8;
+}

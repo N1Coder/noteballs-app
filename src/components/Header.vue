@@ -1,3 +1,23 @@
+<script setup>
+import { useStoreUser } from "@stores/storeUser"
+import { useClickEvent } from "@use/useClickEvent.js"
+
+// Store
+const storeUser = useStoreUser()
+
+// Event
+const signOutUser = (e) => {
+  const elTarget = e.target
+  const siblingNavbar = elTarget.closest(
+    "#navbar-collapse-with-animation"
+  ).previousSibling
+  const toggleNavBtn = siblingNavbar.querySelector("#toggleNavBtn")
+
+  storeUser.signOutUser()
+  useClickEvent(toggleNavBtn)
+}
+</script>
+
 <template>
   <header
     class="flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-white text-sm py-4 dark:bg-gray-800 border-b dark:border-gray-700"
@@ -13,6 +33,7 @@
         <div class="sm:hidden">
           <button
             type="button"
+            id="toggleNavBtn"
             class="hs-collapse-toggle p-2 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800"
             data-hs-collapse="#navbar-collapse-with-animation"
             aria-controls="navbar-collapse-with-animation"
@@ -95,6 +116,14 @@
                 d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"
               />
             </svg>
+          </button>
+
+          <button
+            v-if="storeUser.user.uid"
+            @click="signOutUser"
+            class="btn__danger w-fit"
+          >
+            Logout ({{ storeUser.user.email }})
           </button>
         </div>
       </div>
