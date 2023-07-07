@@ -1,7 +1,7 @@
 <script setup>
 import Note from "@components/Note.vue"
 import InputNote from "@components/InputNote.vue"
-import { onMounted, ref } from "vue"
+import { ref } from "vue"
 import { useStoreNotes } from "@stores/storeNotes.js"
 import { useWatchCharacters } from "@use/useWatchCharacters.js"
 import { MAX_CHARS_NOTE } from "@config/config.js"
@@ -9,11 +9,6 @@ import NoteLoading from "@components/NoteLoading.vue"
 
 const newNoteInput = ref(""),
   inputNoteRef = ref(null)
-
-// Lifecycle
-onMounted(() => {
-  storeNotes.getNotes()
-})
 
 // Store
 const storeNotes = useStoreNotes()

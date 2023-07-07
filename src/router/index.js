@@ -22,7 +22,7 @@ const routes = [
   },
   {
     path: "/auth",
-    name: "editNote",
+    name: "authView",
     component: AuthView,
   },
 ]

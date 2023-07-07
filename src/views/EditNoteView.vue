@@ -27,7 +27,7 @@ onMounted(() => {
   const id = route.params.id
   const [contentNote] = storeNotes.getNoteContent(id)
 
-  if (!contentNote) router.back()
+  if (!contentNote) router.push("/")
 
   editNoteInput.value = contentNote.content
 })

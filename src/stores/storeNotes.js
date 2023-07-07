@@ -10,9 +10,13 @@ import {
   query,
   orderBy,
 } from "firebase/firestore"
+import { useStoreUser } from "@stores/storeUser"
 
-const notesRef = (id) => doc(db, "notes", id)
-const notesQuery = query(collection(db, "notes"), orderBy("createdAt", "desc"))
+const notesDocRef = (id, userId) => doc(db, "users", userId, "notes", id)
+
+let notesCollectionRef
+let notesQuery
+let getNotesSnapshot
 
 export const useStoreNotes = defineStore("storeNotes", {
   state: () => {
@@ -41,6 +45,15 @@ export const useStoreNotes = defineStore("storeNotes", {
     },
   },
   actions: {
+    async init() {
+      const storeUser = useStoreUser()
+      const userId = storeUser.user.uid
+
+      notesCollectionRef = collection(db, "users", userId, "notes")
+      notesQuery = query(notesCollectionRef, orderBy("createdAt", "desc"))
+
+      await this.getNotes()
+    },
     async getNotes() {
       // Note: For reference later
       // const querySnapshot = await getDocs(collection(db, "notes"))
@@ -51,7 +64,7 @@ export const useStoreNotes = defineStore("storeNotes", {
       //   })
       // })
 
-      onSnapshot(notesQuery, (querySnapshot) => {
+      getNotesSnapshot = onSnapshot(notesQuery, (querySnapshot) => {
         this.notes = []
 
         querySnapshot.forEach((doc) => {
@@ -68,22 +81,34 @@ export const useStoreNotes = defineStore("storeNotes", {
     async addNewNote(inputVal) {
       if (!inputVal) return
 
+      const storeUser = useStoreUser()
+      const userId = storeUser.user.uid
       const id = crypto.randomUUID()
       const content = inputVal
 
-      await setDoc(notesRef(id), {
+      await setDoc(notesDocRef(id, userId), {
         content,
         createdAt: new Date().getTime().toString(),
       })
     },
     async deleteNote(id) {
-      await deleteDoc(notesRef(id))
+      const storeUser = useStoreUser()
+      const userId = storeUser.user.uid
+
+      await deleteDoc(notesDocRef(id, userId))
     },
     async editNote(id, content) {
-      await updateDoc(notesRef(id), {
+      const storeUser = useStoreUser()
+      const userId = storeUser.user.uid
+
+      await updateDoc(notesDocRef(id, userId), {
         content,
         createdAt: new Date().getTime().toString(),
       })
+    },
+    clearNotes() {
+      this.notes = []
+      if (getNotesSnapshot) getNotesSnapshot() // unsubscribe from active snapshot listener
     },
   },
 })
