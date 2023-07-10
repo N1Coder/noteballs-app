@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router"
+import { useStoreUser } from "@stores/storeUser.js"
 import NotesView from "@views/NotesView.vue"
 import StatsView from "@views/StatsView.vue"
 import EditNoteView from "@views/EditNoteView.vue"
@@ -30,6 +31,18 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+})
+
+router.beforeEach(async (to) => {
+  const storeUser = useStoreUser()
+
+  if (!storeUser.user.uid && to.name !== "authView") {
+    return { name: "authView" }
+  }
+
+  if (storeUser.user.uid && to.name === "authView") {
+    return false
+  }
 })
 
 export default router

@@ -64,19 +64,23 @@ export const useStoreNotes = defineStore("storeNotes", {
       //   })
       // })
 
-      getNotesSnapshot = onSnapshot(notesQuery, (querySnapshot) => {
-        this.notes = []
+      getNotesSnapshot = onSnapshot(
+        notesQuery,
+        (querySnapshot) => {
+          this.notes = []
 
-        querySnapshot.forEach((doc) => {
-          this.notes.push({
-            id: doc.id,
-            content: doc.data().content,
-            createdAt: doc.data().createdAt,
+          querySnapshot.forEach((doc) => {
+            this.notes.push({
+              id: doc.id,
+              content: doc.data().content,
+              createdAt: doc.data().createdAt,
+            })
           })
-        })
 
-        this.isLoading = false
-      })
+          this.isLoading = false
+        },
+        (error) => console.error(error.message)
+      )
     },
     async addNewNote(inputVal) {
       if (!inputVal) return
